@@ -6,11 +6,11 @@
 
 Created through communication with friends, it helps them to automate routine tasks with a minimum of time and effort.
 
-The goal of the development is twofold - on one hand, to help automate routine tasks, and on the other hand, to hone my programming skills and find some clever solutions (that may be useful in the future) and bring smb exactly what they need.
+The goal of the development is to hone my programming skills and find some clever solutions (that may be useful in the future) and bring smb exactly what they need.
 
 ## List:
 
-- [MotoDream distance calculator](https://github.com/GoodValts/motodream-helpers/distance-calculator)
+- [Motodream distance calculator](https://github.com/GoodValts/motodream-helpers/distance-calculator)
   _TBD..._
 
 ---
