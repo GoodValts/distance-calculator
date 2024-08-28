@@ -10,6 +10,8 @@ import {
   setTheme,
 } from '../../store/reducers/appSettingsSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import darkThemeLogo from '../../assets/darkThemeLogo.png';
+import lightThemeLogo from '../../assets/lightThemeLogo.png';
 
 const langBtnArr: {
   name: string;
@@ -56,7 +58,13 @@ const MainPage = () => {
                 : dispatch(setTheme('light'));
             }}
           >
-            th
+            <div className={styles.themeToggler}>
+              <img
+                className={styles.themeTogglerImage}
+                src={theme === 'dark' ? darkThemeLogo : lightThemeLogo}
+                alt={theme === 'dark' ? 'darkTheme' : 'lightTheme'}
+              />
+            </div>
           </button>
         </header>
         <Calculator

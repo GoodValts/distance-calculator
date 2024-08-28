@@ -18,6 +18,7 @@ export const userSettingsSlice = createSlice({
       action: PayloadAction<UserSettingsInterface['isMetric']>
     ) => {
       state.isMetric = action.payload;
+      localStorage.setItem('isMetric', String(state.isMetric));
     },
   },
 });

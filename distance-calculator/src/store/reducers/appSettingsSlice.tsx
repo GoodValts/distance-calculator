@@ -23,6 +23,7 @@ export const appSettingsSlice = createSlice({
       action: PayloadAction<AppSettingsInterface['language']>
     ) => {
       state.language = action.payload;
+      localStorage.setItem('language', state.language);
     },
     setTheme: (state, action: PayloadAction<AppSettingsInterface['theme']>) => {
       state.theme = action.payload;
