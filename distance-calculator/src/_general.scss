@@ -1,0 +1,74 @@
+$marginDefault: 20px;
+$marginDefaultDiv2: calc($marginDefault / 2);
+$marginDefaultDiv4: calc($marginDefault / 4);
+
+$colorDefaultBackground: #ffffff;
+$colorDefaultHighLighted: #798899;
+$colorDefaultText: #505a65;
+$colorDefaultLink: #708090;
+
+$colorDarkBackground: #2e2e2e;
+$colorDarkHighLighted: #818fa3;
+$colorDarkText: #b0c4de;
+$colorDarkLink: #8999ad;
+
+$sizeDesktopText: 20px;
+$sizeDesktopTextSmall: 16px;
+$sizeDesktopTextBig: 24px;
+
+$defaultFontFamily: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+@mixin _hover {
+  @media (hover: hover) {
+    &:hover {
+      @content;
+    }
+  }
+}
+
+@mixin _tablet {
+  @media (max-width: 1279.98px) {
+    @content;
+  }
+}
+
+@mixin _mobile {
+  @media (max-width: 767.98px) {
+    @content;
+  }
+}
+
+@mixin _dark {
+  html[data-theme='dark'] & {
+    @content;
+  }
+}
+
+@mixin _defaultButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $colorDefaultText;
+  font-size: $sizeDesktopText;
+  background-color: transparent;
+  border: 1px solid $colorDefaultHighLighted;
+  border-radius: $marginDefaultDiv2;
+  padding: $marginDefaultDiv2;
+  margin: $marginDefaultDiv2 auto;
+
+  @include _hover {
+    cursor: pointer;
+    color: $colorDefaultBackground;
+    background-color: $colorDefaultHighLighted;
+  }
+
+  @include _dark {
+    color: $colorDarkText;
+    background-color: $colorDarkBackground;
+
+    @include _hover {
+      color: $colorDarkBackground;
+      background-color: $colorDarkText;
+    }
+  }
+}
