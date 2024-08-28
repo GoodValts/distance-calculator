@@ -17,6 +17,20 @@
   border-radius: calc($marginDefault / 2);
   margin: auto;
   padding: $marginDefaultDiv2 0;
+
+  @include _dark {
+    background-image: linear-gradient(
+        to bottom,
+        #323232 0%,
+        #3f3f3f 40%,
+        #1c1c1c 150%
+      ),
+      linear-gradient(
+        to top,
+        rgba(255, 255, 255, 0.4) 0%,
+        rgba(0, 0, 0, 0.25) 200%
+      );
+  }
 }
 
 .tableBlock {
@@ -30,6 +44,10 @@
   border: 1px solid #b0c4de;
   margin: 1vh;
   max-width: 1200px;
+
+  @include _dark {
+    border-color: slategray;
+  }
 }
 
 .cell {
@@ -46,12 +64,25 @@
     font-size: 14px;
   }
 
+  @include _dark {
+    color: slateblue;
+    border-color: slategray;
+  }
+
   &_time {
     color: DarkOrange;
+
+    @include _dark {
+      color: goldenrod;
+    }
   }
 
   &_speed {
     color: cornflowerblue;
+
+    @include _dark {
+      color: steelblue;
+    }
   }
 }
 
@@ -61,6 +92,10 @@
   text-align: center;
   color: SteelBlue;
   margin-bottom: 0;
+
+  @include _dark {
+    color: $colorDarkHighLighted;
+  }
 }
 
 .controllers {
@@ -93,6 +128,15 @@
 
   @include _mobile {
     padding-left: 0;
+  }
+
+  @include _dark {
+    color: lightsteelblue;
+    border-color: #2f2f2f;
+
+    &:focus {
+      border-color: #3d418b;
+    }
   }
 }
 

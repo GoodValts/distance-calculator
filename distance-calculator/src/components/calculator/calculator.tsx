@@ -3,7 +3,10 @@ import transformKmhToDistance from '../../common/calculateDistance';
 import styles from './calculator.module.scss';
 import calculatorText from './langData';
 import { useAppSelector } from '../../store/hooks';
-import { selectLanguage } from '../../store/reducers/appSettingsSlice';
+import {
+  selectLanguage,
+  selectTheme,
+} from '../../store/reducers/appSettingsSlice';
 import { selectIsMetric } from '../../store/reducers/userSettingsSlice';
 
 const Calculator = ({
@@ -13,11 +16,12 @@ const Calculator = ({
   isCalculator: boolean;
   switchComponent: () => void;
 }) => {
-  const [time, setTime] = useState(0);
-  const [speed, setSpeed] = useState(0);
-
   const lang = useAppSelector(selectLanguage);
   const isMetric = useAppSelector(selectIsMetric);
+  const theme = useAppSelector(selectTheme);
+
+  const [time, setTime] = useState(0);
+  const [speed, setSpeed] = useState(0);
 
   return (
     <>
@@ -81,16 +85,16 @@ const Calculator = ({
                 style={
                   parseFloat(transformKmhToDistance(speed, time, isMetric)) ===
                   0
-                    ? { color: '#778899' }
+                    ? { color: theme === 'dark' ? '#708090' : '#778899' }
                     : parseFloat(
                           transformKmhToDistance(speed, time, isMetric)
                         ) < 5
-                      ? { color: '#228B22' }
+                      ? { color: theme === 'dark' ? '#7fcd32' : '#228B22' }
                       : parseFloat(
                             transformKmhToDistance(speed, time, isMetric)
                           ) < 10
                         ? { color: '#FF8C00' }
-                        : { color: '#B22222' }
+                        : { color: theme === 'dark' ? '#DC143C' : '#B22222' }
                 }
               >
                 {speed && time
