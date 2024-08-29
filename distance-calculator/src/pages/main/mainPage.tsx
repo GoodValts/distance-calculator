@@ -2,31 +2,9 @@ import { useState } from 'react';
 import styles from './mainPage.module.scss';
 import Calculator from '../../components/calculator/calculator';
 import Table from '../../components/table/table';
-import {
-  AppSettingsInterface,
-  selectLanguage,
-  selectTheme,
-  setLanguage,
-  setTheme,
-} from '../../store/reducers/appSettingsSlice';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import darkThemeLogo from '../../assets/darkThemeLogo.png';
-import lightThemeLogo from '../../assets/lightThemeLogo.png';
-
-const langBtnArr: {
-  name: string;
-  value: AppSettingsInterface['language'];
-}[] = [
-  { name: 'En', value: 'en' },
-  { name: 'Рус', value: 'ru' },
-  { name: 'Бел', value: 'bel' },
-];
+import Controllers from '../../components/controllers/controllers';
 
 const MainPage = () => {
-  const lang = useAppSelector(selectLanguage);
-  const theme = useAppSelector(selectTheme);
-  const dispatch = useAppDispatch();
-
   const [isCalculator, setIsCalculator] = useState(true);
 
   const switchComponent = () => {
@@ -34,46 +12,14 @@ const MainPage = () => {
   };
 
   return (
-    <>
-      <main className={styles.main}>
-        <header className={styles.header}>
-          <button
-            className={styles.langButton}
-            onClick={() => {
-              const currIndex = langBtnArr.findIndex((el) => el.value === lang);
-              dispatch(
-                langBtnArr[currIndex + 1]
-                  ? setLanguage(langBtnArr[currIndex + 1].value)
-                  : setLanguage(langBtnArr[0].value)
-              );
-            }}
-          >
-            {langBtnArr[langBtnArr.findIndex((el) => el.value === lang)].name}
-          </button>
-          <button
-            className={styles.themeBlock}
-            onClick={() => {
-              theme === 'light'
-                ? dispatch(setTheme('dark'))
-                : dispatch(setTheme('light'));
-            }}
-          >
-            <div className={styles.themeToggler}>
-              <img
-                className={styles.themeTogglerImage}
-                src={theme === 'dark' ? darkThemeLogo : lightThemeLogo}
-                alt={theme === 'dark' ? 'darkTheme' : 'lightTheme'}
-              />
-            </div>
-          </button>
-        </header>
-        <Calculator
-          isCalculator={isCalculator}
-          switchComponent={switchComponent}
-        />
-        <Table isCalculator={isCalculator} switchComponent={switchComponent} />
-      </main>
-    </>
+    <main className={styles.main}>
+      <Controllers />
+      <Calculator
+        isCalculator={isCalculator}
+        switchComponent={switchComponent}
+      />
+      <Table isCalculator={isCalculator} switchComponent={switchComponent} />
+    </main>
   );
 };
 
