@@ -5,7 +5,7 @@ Version: v*.*
 ---
 
 Changes:
- - Featers: *list*
+ - Features: *list*
  - Fixed: *list*
  - Other: *list*
 ---
