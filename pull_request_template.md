@@ -10,5 +10,5 @@ Changes:
  - Other: *list*
 ---
 
-- [ ] Deploy:  
+- [ ] [Deploy]()
 - [ ] Documentation changed
