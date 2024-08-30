@@ -1,12 +1,14 @@
-App: ***
+App: [Name](repository-link)
 
-Version: v**.**
+Version: v*.*
 
 ---
+
 Changes:
  - Featers: *list*
  - Fixed: *list*
  - Other: *list*
 ---
+
 - [ ] Deploy:  
 - [ ] Documentation changed
