@@ -10,5 +10,6 @@ Changes:
  - Other: *list*
 ---
 
+- [ ] Version number checked
 - [ ] [Deploy]()
 - [ ] Documentation changed
