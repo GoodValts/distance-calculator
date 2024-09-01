@@ -28,4 +28,4 @@ Include:
 
 ## Version history
 
-- [current (v0.0)](https://app.netlify.com/sites/motodream-distance-calculator/overview)
+- [current (v0.0)](https://motodream-distance-calculator.netlify.app/)
