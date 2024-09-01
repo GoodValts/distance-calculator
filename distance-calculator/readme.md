@@ -28,5 +28,5 @@ Include:
 
 ## Versions
 
-- [v0.0.1)](https://motodream-app-dc.netlify.app/)
-- [v0.0.0)](https://motodream-app-dc-v0-0-0.netlify.app)
+- [v0.0.1](https://motodream-app-dc.netlify.app/)
+- [v0.0.0](https://motodream-app-dc-v0-0-0.netlify.app)
