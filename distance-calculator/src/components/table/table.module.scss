@@ -72,6 +72,10 @@
   &_time {
     color: DarkOrange;
 
+    @include _hover {
+      cursor: pointer;
+    }
+
     @include _dark {
       color: goldenrod;
     }
@@ -79,6 +83,10 @@
 
   &_speed {
     color: cornflowerblue;
+
+    @include _hover {
+      cursor: pointer;
+    }
 
     @include _dark {
       color: steelblue;

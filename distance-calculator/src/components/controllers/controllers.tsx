@@ -6,8 +6,8 @@ import {
   setLanguage,
   setTheme,
 } from '../../store/reducers/appSettingsSlice';
-import darkThemeLogo from '../../assets/darkThemeLogo.png';
-import lightThemeLogo from '../../assets/lightThemeLogo.png';
+import darkThemeLogo from '../../assets/dark-theme-logo.png';
+import lightThemeLogo from '../../assets/light-theme-logo.png';
 import styles from './controllers.module.scss';
 import {
   selectIsMetric,

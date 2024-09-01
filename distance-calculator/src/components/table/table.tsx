@@ -2,11 +2,17 @@ import React, { useEffect, useRef, useState } from 'react';
 import transformKmhToDistance from '../../common/calculateDistance';
 import styles from './table.module.scss';
 import saveIcon from '../../assets/save-icon.png';
+import saveIconDark from '../../assets/save-icon-dark.png';
+import exitIcon from '../../assets/exit-icon.png';
 import deleteIcon from '../../assets/delete-icon.png';
+import deleteIconDark from '../../assets/delete-icon-dark.png';
 import { useAppSelector } from '../../store/hooks';
 import { selectIsMetric } from '../../store/reducers/userSettingsSlice';
 import tableText from './langData';
-import { selectLanguage } from '../../store/reducers/appSettingsSlice';
+import {
+  selectLanguage,
+  selectTheme,
+} from '../../store/reducers/appSettingsSlice';
 
 const Table = ({
   isCalculator,
@@ -17,6 +23,7 @@ const Table = ({
 }) => {
   const isMetric = useAppSelector(selectIsMetric);
   const lang = useAppSelector(selectLanguage);
+  const theme = useAppSelector(selectTheme);
 
   let localTimeArr = [0.1, 0.5, 1];
   let localSpeedArr = [5, 10, 20];
@@ -27,16 +34,12 @@ const Table = ({
   if (localStorage.getItem('speedArr'))
     localSpeedArr = JSON.parse(localStorage.getItem('speedArr') as string);
 
-  const [isEdit, setIsEdit] = useState<'time' | 'speed' | null>(null);
+  const [editionMode, setEditionMode] = useState<'time' | 'speed' | null>(null);
   const [time, setTime] = useState<number[]>(localTimeArr);
   const [speed, setSpeed] = useState<number[]>(localSpeedArr);
 
   const tableRef = useRef(null);
   const inputRef = useRef(null);
-
-  if (localStorage.getItem('timeArr')) {
-    console.log();
-  }
 
   useEffect(() => {
     if (tableRef && tableRef.current) {
@@ -49,7 +52,7 @@ const Table = ({
   }, [tableRef, time, speed, isCalculator]);
 
   const editValues = (valuesArr: number[], input: HTMLInputElement) => {
-    setIsEdit(time === valuesArr ? 'time' : 'speed');
+    setEditionMode(time === valuesArr ? 'time' : 'speed');
     input.value = valuesArr.join(', ');
   };
 
@@ -66,10 +69,8 @@ const Table = ({
       )
     ).filter((el) => el > 0);
 
-    console.log(arr);
-
     if (arr.length) {
-      if (isEdit === 'time') {
+      if (editionMode === 'time') {
         setTime(arr);
         localStorage.setItem('timeArr', JSON.stringify(arr));
       } else {
@@ -78,12 +79,16 @@ const Table = ({
       }
     }
 
-    setIsEdit(null);
+    setEditionMode(null);
     input.value = '';
   };
 
   const returnValues = (input: HTMLInputElement) => {
-    setIsEdit(null);
+    setEditionMode(null);
+    input.value = '';
+  };
+
+  const deleteValues = (input: HTMLInputElement) => {
     input.value = '';
   };
 
@@ -95,7 +100,7 @@ const Table = ({
             <p className={styles.label}>{tableText[lang].tableHeader}</p>
             <div
               className={
-                isEdit ? styles.controllers : styles.controllers_inactive
+                editionMode ? styles.controllers : styles.controllers_inactive
               }
             >
               <input ref={inputRef} className={styles.input}></input>
@@ -105,14 +110,21 @@ const Table = ({
                   onClick={() => {
                     if (inputRef.current) saveValues(inputRef.current);
                   }}
-                  src={saveIcon}
+                  src={theme === 'light' ? saveIcon : saveIconDark}
+                />
+                <img
+                  className={styles.saveButton}
+                  onClick={() => {
+                    if (inputRef.current) deleteValues(inputRef.current);
+                  }}
+                  src={theme === 'light' ? deleteIcon : deleteIconDark}
                 />
                 <img
                   className={styles.saveButton}
                   onClick={() => {
                     if (inputRef.current) returnValues(inputRef.current);
                   }}
-                  src={deleteIcon}
+                  src={exitIcon}
                 />
               </div>
             </div>
@@ -124,7 +136,7 @@ const Table = ({
                     key={timeEl}
                     className={`${styles.cell} ${styles.cell_time}`}
                     onClick={() => {
-                      if (!isEdit && inputRef.current)
+                      if (!editionMode && inputRef.current)
                         editValues(time, inputRef.current);
                     }}
                   >
@@ -136,7 +148,7 @@ const Table = ({
                     <p
                       className={`${styles.cell} ${styles.cell_speed}`}
                       onClick={() => {
-                        if (!isEdit && inputRef.current)
+                        if (!editionMode && inputRef.current)
                           editValues(speed, inputRef.current);
                       }}
                     >
@@ -167,7 +179,7 @@ const Table = ({
               className={styles.button}
               onClick={() => {
                 switchComponent();
-                setIsEdit(null);
+                setEditionMode(null);
               }}
             >
               {tableText[lang].calculator}

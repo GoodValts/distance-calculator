@@ -35,8 +35,8 @@ const tableText: {
   bel: {
     tableHeader: 'Табліца адлегласцi па часе і хуткасці',
     speed: {
-      labelForMetric: 'км/ч',
-      labelForImperial: 'мiль/ч',
+      labelForMetric: 'км/г',
+      labelForImperial: 'мiль/г',
     },
     distance: 'м',
     time: 'с',
