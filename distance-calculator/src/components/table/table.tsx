@@ -6,24 +6,24 @@ import saveIconDark from '../../assets/save-icon-dark.png';
 import exitIcon from '../../assets/exit-icon.png';
 import deleteIcon from '../../assets/delete-icon.png';
 import deleteIconDark from '../../assets/delete-icon-dark.png';
-import { useAppSelector } from '../../store/hooks';
-import { selectIsMetric } from '../../store/reducers/user-settings-slice';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import {
+  selectIsMetric,
+  selectIsTable,
+  setIsTable,
+} from '../../store/reducers/user-settings-slice';
 import tableText from './lang-data';
 import {
   selectLanguage,
   selectTheme,
 } from '../../store/reducers/app-settings-slice';
 
-const Table = ({
-  isCalculator,
-  switchComponent,
-}: {
-  isCalculator: boolean;
-  switchComponent: () => void;
-}) => {
+const Table = () => {
   const isMetric = useAppSelector(selectIsMetric);
+  const isTable = useAppSelector(selectIsTable);
   const lang = useAppSelector(selectLanguage);
   const theme = useAppSelector(selectTheme);
+  const dispatch = useAppDispatch();
 
   let localTimeArr = [0.5, 1, 2];
   let localSpeedArr = [
@@ -51,7 +51,7 @@ const Table = ({
         ' 1fr'.repeat(time.length)
       )}`;
     }
-  }, [tableRef, time, speed, isCalculator]);
+  }, [tableRef, time, speed, isTable]);
 
   const editValues = (valuesArr: number[], input: HTMLInputElement) => {
     setEditionMode(time === valuesArr ? 'time' : 'speed');
@@ -96,99 +96,93 @@ const Table = ({
 
   return (
     <>
-      {!isCalculator && (
-        <div className={styles.container}>
-          <div className={styles.tableContainer}>
-            <p className={styles.label}>{tableText[lang].tableHeader}</p>
-            <div
-              className={
-                editionMode ? styles.controllers : styles.controllers_inactive
-              }
-            >
-              <input ref={inputRef} className={styles.input}></input>
-              <div className={styles.buttonBlock}>
-                <img
-                  className={styles.saveButton}
-                  onClick={() => {
-                    if (inputRef.current) saveValues(inputRef.current);
-                  }}
-                  src={theme === 'light' ? saveIcon : saveIconDark}
-                />
-                <img
-                  className={styles.saveButton}
-                  onClick={() => {
-                    if (inputRef.current) deleteValues(inputRef.current);
-                  }}
-                  src={theme === 'light' ? deleteIcon : deleteIconDark}
-                />
-                <img
-                  className={styles.saveButton}
-                  onClick={() => {
-                    if (inputRef.current) returnValues(inputRef.current);
-                  }}
-                  src={exitIcon}
-                />
-              </div>
+      <div className={styles.container}>
+        <div className={styles.tableContainer}>
+          <p className={styles.label}>{tableText[lang].tableHeader}</p>
+          <div
+            className={
+              editionMode ? styles.controllers : styles.controllers_inactive
+            }
+          >
+            <input ref={inputRef} className={styles.input}></input>
+            <div className={styles.buttonBlock}>
+              <img
+                className={styles.saveButton}
+                onClick={() => {
+                  if (inputRef.current) saveValues(inputRef.current);
+                }}
+                src={theme === 'light' ? saveIcon : saveIconDark}
+              />
+              <img
+                className={styles.saveButton}
+                onClick={() => {
+                  if (inputRef.current) deleteValues(inputRef.current);
+                }}
+                src={theme === 'light' ? deleteIcon : deleteIconDark}
+              />
+              <img
+                className={styles.saveButton}
+                onClick={() => {
+                  if (inputRef.current) returnValues(inputRef.current);
+                }}
+                src={exitIcon}
+              />
             </div>
-            <div className={styles.tableBlock}>
-              <div className={styles.table} ref={tableRef}>
-                <p className={styles.cell}></p>
-                {time.map((timeEl) => (
+          </div>
+          <div className={styles.tableBlock}>
+            <div className={styles.table} ref={tableRef}>
+              <p className={styles.cell}></p>
+              {time.map((timeEl) => (
+                <p
+                  key={timeEl}
+                  className={`${styles.cell} ${styles.cell_time}`}
+                  onClick={() => {
+                    if (!editionMode && inputRef.current)
+                      editValues(time, inputRef.current);
+                  }}
+                >
+                  {timeEl.toString().concat(` ${tableText[lang].time}`)}
+                </p>
+              ))}
+              {speed.map((speedEl) => (
+                <React.Fragment key={speedEl}>
                   <p
-                    key={timeEl}
-                    className={`${styles.cell} ${styles.cell_time}`}
+                    className={`${styles.cell} ${styles.cell_speed}`}
                     onClick={() => {
                       if (!editionMode && inputRef.current)
-                        editValues(time, inputRef.current);
+                        editValues(speed, inputRef.current);
                     }}
                   >
-                    {timeEl.toString().concat(` ${tableText[lang].time}`)}
+                    {isMetric
+                      ? speedEl
+                          .toString()
+                          .concat(` ${tableText[lang].speed.labelForMetric}`)
+                      : speedEl
+                          .toString()
+                          .concat(` ${tableText[lang].speed.labelForImperial}`)}
                   </p>
-                ))}
-                {speed.map((speedEl) => (
-                  <React.Fragment key={speedEl}>
-                    <p
-                      className={`${styles.cell} ${styles.cell_speed}`}
-                      onClick={() => {
-                        if (!editionMode && inputRef.current)
-                          editValues(speed, inputRef.current);
-                      }}
-                    >
-                      {isMetric
-                        ? speedEl
-                            .toString()
-                            .concat(` ${tableText[lang].speed.labelForMetric}`)
-                        : speedEl
-                            .toString()
-                            .concat(
-                              ` ${tableText[lang].speed.labelForImperial}`
-                            )}
+                  {time.map((timeEl) => (
+                    <p key={speedEl + '/' + timeEl} className={styles.cell}>
+                      {transformKmhToDistance(speedEl, timeEl, isMetric).concat(
+                        ` ${tableText[lang].distance}`
+                      )}
                     </p>
-                    {time.map((timeEl) => (
-                      <p key={speedEl + '/' + timeEl} className={styles.cell}>
-                        {transformKmhToDistance(
-                          speedEl,
-                          timeEl,
-                          isMetric
-                        ).concat(` ${tableText[lang].distance}`)}
-                      </p>
-                    ))}
-                  </React.Fragment>
-                ))}
-              </div>
+                  ))}
+                </React.Fragment>
+              ))}
             </div>
-            <p
-              className={styles.button}
-              onClick={() => {
-                switchComponent();
-                setEditionMode(null);
-              }}
-            >
-              {tableText[lang].calculator}
-            </p>
           </div>
+          <p
+            className={styles.button}
+            onClick={() => {
+              dispatch(setIsTable(false));
+              setEditionMode(null);
+            }}
+          >
+            {tableText[lang].calculator}
+          </p>
         </div>
-      )}
+      </div>
     </>
   );
 };
