@@ -25,8 +25,10 @@ const Table = ({
   const lang = useAppSelector(selectLanguage);
   const theme = useAppSelector(selectTheme);
 
-  let localTimeArr = [0.1, 0.5, 1];
-  let localSpeedArr = [5, 10, 20];
+  let localTimeArr = [0.5, 1, 2];
+  let localSpeedArr = [
+    40, 50, 60, 80, 90, 100, 120, 130, 140, 150, 160, 180, 200, 299,
+  ];
 
   if (localStorage.getItem('timeArr'))
     localTimeArr = JSON.parse(localStorage.getItem('timeArr') as string);
