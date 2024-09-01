@@ -3,6 +3,7 @@ import styles from './mainPage.module.scss';
 import Calculator from '../../components/calculator/calculator';
 import Table from '../../components/table/table';
 import Controllers from '../../components/controllers/controllers';
+import Footer from '../../components/footer/footer';
 
 const MainPage = () => {
   const [isCalculator, setIsCalculator] = useState(true);
@@ -19,6 +20,7 @@ const MainPage = () => {
         switchComponent={switchComponent}
       />
       <Table isCalculator={isCalculator} switchComponent={switchComponent} />
+      <Footer />
     </main>
   );
 };

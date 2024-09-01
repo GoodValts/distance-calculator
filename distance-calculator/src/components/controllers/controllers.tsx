@@ -6,6 +6,7 @@ import {
   setLanguage,
   setTheme,
 } from '../../store/reducers/appSettingsSlice';
+import getAppVersion from '../../common/getAppVersion';
 import darkThemeLogo from '../../assets/dark-theme-logo.png';
 import lightThemeLogo from '../../assets/light-theme-logo.png';
 import styles from './controllers.module.scss';
