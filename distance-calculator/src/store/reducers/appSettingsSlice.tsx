@@ -11,7 +11,10 @@ const initialState: AppSettingsInterface = {
     (localStorage.getItem('language') as AppSettingsInterface['language']) ||
     'en',
   theme:
-    new Date().getHours() >= 8 && new Date().getHours() < 22 ? 'light' : 'dark',
+    (localStorage.getItem('theme') as AppSettingsInterface['theme']) ||
+    (new Date().getHours() >= 8 && new Date().getHours() < 22)
+      ? 'light'
+      : 'dark',
 };
 
 export const appSettingsSlice = createSlice({
@@ -27,6 +30,7 @@ export const appSettingsSlice = createSlice({
     },
     setTheme: (state, action: PayloadAction<AppSettingsInterface['theme']>) => {
       state.theme = action.payload;
+      localStorage.setItem('theme', state.theme);
     },
   },
 });
