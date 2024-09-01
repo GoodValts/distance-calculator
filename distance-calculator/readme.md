@@ -26,6 +26,7 @@ Include:
 - React + Redux
 - SCSS modules
 
-## Version history
+## Versions
 
-- [current (v0.0)](https://motodream-distance-calculator.netlify.app/)
+- [v0.0.1)](https://motodream-app-dc.netlify.app/)
+- [v0.0.0)](https://motodream-app-dc-v0-0-0.netlify.app)
