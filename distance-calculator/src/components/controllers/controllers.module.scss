@@ -1,0 +1,95 @@
+@import '../../general';
+
+.header {
+  display: flex;
+  padding: $marginDefaultDiv2;
+  justify-content: flex-end;
+}
+
+.defButton {
+  width: 60px;
+  font-size: 16px;
+  font-weight: 700;
+  color: $colorDefaultText;
+  background-color: rgba($color: #4c7399, $alpha: 0.05);
+  border: 1px solid $colorDarkHighLighted;
+  border-radius: 20px;
+  margin-right: $marginDefaultDiv2;
+
+  &_metricSys {
+    width: 75px;
+  }
+
+  @include _hover {
+    cursor: pointer;
+  }
+
+  @include _dark {
+    color: #008b8b;
+    background-color: rgba($color: #638fc7, $alpha: 0.1);
+  }
+}
+
+.themeBlock {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 65px;
+  border: 0;
+  border-radius: 20px;
+  background-color: rgba($color: #4c7399, $alpha: 0.05);
+  border: 1px solid rgba($color: $colorDefaultHighLighted, $alpha: 1);
+
+  &::after {
+    content: '';
+    position: absolute;
+    height: 3px;
+    width: 38px;
+    border-radius: 20px;
+    background-color: #999;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  @include _hover {
+    cursor: pointer;
+  }
+
+  @include _dark {
+    background-color: rgba($color: #638fc7, $alpha: 0.1);
+    border-color: $colorDarkHighLighted;
+
+    &::after {
+      background-color: #008b8b;
+    }
+  }
+}
+
+.themeToggler {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 20px;
+  z-index: 2;
+  margin: 3px;
+  margin-right: 32px;
+
+  background-color: #bac8e0;
+  border: 1px solid $colorDefaultHighLighted;
+
+  &Image {
+    width: 24px;
+    height: 24px;
+  }
+
+  @include _dark {
+    background-color: #485563;
+    border-color: $colorDarkHighLighted;
+    margin-right: 0px;
+    margin-left: 32px;
+  }
+}

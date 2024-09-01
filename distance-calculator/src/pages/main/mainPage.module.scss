@@ -1,0 +1,11 @@
+@import '../../general';
+
+.main {
+  min-width: 100vw;
+  min-height: 100vh;
+  background: linear-gradient(to top, #6a85b6 0%, #bac8e0 100%);
+
+  @include _dark {
+    background: linear-gradient(0deg, #29323c 0%, #485563 100%);
+  }
+}

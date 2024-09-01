@@ -1,0 +1,25 @@
+@import '../../general';
+
+.section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  color: $colorDefaultText;
+
+  @include _dark {
+    color: $colorDarkText;
+    background-color: $colorDarkBackground;
+  }
+}
+
+.message {
+  text-align: center;
+  font-size: $sizeDesktopTextBig;
+  padding: $marginDefaultDiv2;
+  margin-bottom: $marginDefaultDiv2;
+}
+
+.button {
+  @include _defaultButton;
+}

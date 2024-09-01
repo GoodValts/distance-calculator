@@ -1,0 +1,27 @@
+@import '../../general';
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  padding: $marginDefaultDiv4;
+}
+
+.footerText {
+  font-size: 14px;
+  color: #c3cfe2;
+
+  @include _dark {
+    color: #7e868f;
+  }
+}
+
+.footerImg {
+  width: 16px;
+  font-size: 14px;
+  margin: 0 $marginDefaultDiv2; 
+
+  @include _hover {
+    cursor: pointer;
+    transform: scale(.95);
+  }
+}
