@@ -1,9 +1,6 @@
-import getAppVersion from '../../common/getAppVersion';
+import getAppVersion from '../../common/get-app-version';
 import { useAppSelector } from '../../store/hooks';
-import {
-  selectLanguage,
-  selectTheme,
-} from '../../store/reducers/appSettingsSlice';
+import { selectTheme } from '../../store/reducers/app-settings-slice';
 import tgIcon from '../../assets/tg-icon.png';
 import tgIconDark from '../../assets/tg-icon-dark.png';
 import linkedIcon from '../../assets/linked-icon.png';
@@ -13,7 +10,6 @@ import gitIconDark from '../../assets/git-icon-dark.png';
 import styles from './footer.module.scss';
 
 const Footer = () => {
-  const lang = useAppSelector(selectLanguage);
   const theme = useAppSelector(selectTheme);
 
   return (

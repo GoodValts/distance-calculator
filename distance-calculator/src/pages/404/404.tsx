@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../store/hooks';
-import { selectLanguage } from '../../store/reducers/appSettingsSlice';
+import { selectLanguage } from '../../store/reducers/app-settings-slice';
 import styles from './404.module.scss';
-import notFoundText from './langData';
+import notFoundText from './lang-data';
 
 const NotFoundPage = () => {
   const lang = useAppSelector(selectLanguage);

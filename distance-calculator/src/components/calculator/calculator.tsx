@@ -1,13 +1,13 @@
 import { useState } from 'react';
-import transformKmhToDistance from '../../common/calculateDistance';
+import transformKmhToDistance from '../../common/calculate-distance';
 import styles from './calculator.module.scss';
-import calculatorText from './langData';
+import calculatorText from './lang-data';
 import { useAppSelector } from '../../store/hooks';
 import {
   selectLanguage,
   selectTheme,
-} from '../../store/reducers/appSettingsSlice';
-import { selectIsMetric } from '../../store/reducers/userSettingsSlice';
+} from '../../store/reducers/app-settings-slice';
+import { selectIsMetric } from '../../store/reducers/user-settings-slice';
 
 const Calculator = ({
   isCalculator,

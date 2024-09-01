@@ -5,16 +5,15 @@ import {
   selectTheme,
   setLanguage,
   setTheme,
-} from '../../store/reducers/appSettingsSlice';
-import getAppVersion from '../../common/getAppVersion';
+} from '../../store/reducers/app-settings-slice';
 import darkThemeLogo from '../../assets/dark-theme-logo.png';
 import lightThemeLogo from '../../assets/light-theme-logo.png';
 import styles from './controllers.module.scss';
 import {
   selectIsMetric,
   setIsMetric,
-} from '../../store/reducers/userSettingsSlice';
-import controllersText from './langData';
+} from '../../store/reducers/user-settings-slice';
+import controllersText from './lang-data';
 
 const langBtnArr: {
   name: string;

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import transformKmhToDistance from '../../common/calculateDistance';
+import transformKmhToDistance from '../../common/calculate-distance';
 import styles from './table.module.scss';
 import saveIcon from '../../assets/save-icon.png';
 import saveIconDark from '../../assets/save-icon-dark.png';
@@ -7,12 +7,12 @@ import exitIcon from '../../assets/exit-icon.png';
 import deleteIcon from '../../assets/delete-icon.png';
 import deleteIconDark from '../../assets/delete-icon-dark.png';
 import { useAppSelector } from '../../store/hooks';
-import { selectIsMetric } from '../../store/reducers/userSettingsSlice';
-import tableText from './langData';
+import { selectIsMetric } from '../../store/reducers/user-settings-slice';
+import tableText from './lang-data';
 import {
   selectLanguage,
   selectTheme,
-} from '../../store/reducers/appSettingsSlice';
+} from '../../store/reducers/app-settings-slice';
 
 const Table = ({
   isCalculator,

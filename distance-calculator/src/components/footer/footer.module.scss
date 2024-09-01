@@ -18,10 +18,10 @@
 .footerImg {
   width: 16px;
   font-size: 14px;
-  margin: 0 $marginDefaultDiv2; 
+  margin: 0 $marginDefaultDiv2;
 
   @include _hover {
     cursor: pointer;
-    transform: scale(.95);
+    transform: scale(0.95);
   }
 }

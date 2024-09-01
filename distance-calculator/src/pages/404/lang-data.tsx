@@ -1,4 +1,4 @@
-import { AppSettingsInterface } from '../../store/reducers/appSettingsSlice';
+import { AppSettingsInterface } from '../../store/reducers/app-settings-slice';
 
 const notFoundText: {
   [key in AppSettingsInterface['language']]: {

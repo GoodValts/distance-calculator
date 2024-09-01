@@ -1,7 +1,7 @@
 import React from 'react';
 import store from '../../store/store';
-import styles from './errorBoundary.module.scss';
-import errorText from './langData';
+import styles from './error-boundary.module.scss';
+import errorText from './lang-data';
 
 interface ErrorBoundaryInterface {
   props: {

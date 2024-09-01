@@ -1,7 +1,7 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
-import appSettingsReducer from './reducers/appSettingsSlice';
-import userSettingsReducer from './reducers/userSettingsSlice';
+import appSettingsReducer from './reducers/app-settings-slice';
+import userSettingsReducer from './reducers/user-settings-slice';
 
 export const reducers = combineReducers({
   appSettings: appSettingsReducer,
