@@ -1,5 +1,5 @@
-import { AppSettingsInterface } from '../../store/reducers/appSettingsSlice';
-import calculatorText from '../calculator/langData';
+import { AppSettingsInterface } from '../../store/reducers/app-settings-slice';
+import calculatorText from '../calculator/lang-data';
 
 const controllersText: {
   [key in AppSettingsInterface['language']]: {

@@ -24,9 +24,27 @@ Include:
 ## Tech:
 
 - React + Redux
+- TypeScript
 - SCSS modules
+- Vite
+- ESLint
+- Prettier
+
+## Install
+
+To open deploy select [version](#versions).
+To start the application in developer mode make sure you have [Git](https://git-scm.com) and [Node.js](https://nodejs.org) installed on your machine. Then follow these steps:
+
+1. Clone repository: `git clone https://github.com/GoodValts/motodream-helpers.git`
+1. Navigate to the project directory: `cd motodream-helpers`
+1. Switch to app branch: `git checkout distance-calculator`
+1. Navigate to the app directory: `cd distance-calculator`
+1. Install dependencies: `npm i`
+1. Start the development server: `npm run dev`
+1. Open the link or navigate to `http://localhost:5173/`
 
 ## Versions
 
-- [v0.0.1](https://motodream-app-dc.netlify.app)
+- [v0.0.2](https://motodream-app-dc.netlify.app/)
+- [v0.0.1](https://motodream-app-dc-v0-0-1.netlify.app/)
 - [v0.0.0](https://motodream-app-dc-v0-0-0.netlify.app)
