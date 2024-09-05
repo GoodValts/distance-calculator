@@ -24,7 +24,11 @@ Include:
 ## Tech:
 
 - React + Redux
+- TypeScript
 - SCSS modules
+- Vite
+- ESLint
+- Prettier
 
 ## Install
 
@@ -41,7 +45,6 @@ To start the application in developer mode make sure you have [Git](https://git-
 
 ## Versions
 
-- ~~[v0.0.2](https://motodream-app-dc.netlify.app/)~~
-- ~~[v0.0.1](https://motodream-app-dc-v0-0-1.netlify.app/)~~
-- [v0.0.1](https://motodream-app-dc.netlify.app/)
+- [v0.0.2](https://motodream-app-dc.netlify.app/)
+- [v0.0.1](https://motodream-app-dc-v0-0-1.netlify.app/)
 - [v0.0.0](https://motodream-app-dc-v0-0-0.netlify.app)
