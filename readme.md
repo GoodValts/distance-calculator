@@ -10,9 +10,9 @@ The goal of the development is to hone my programming skills and find some cleve
 
 ## List:
 
-- [Motodream distance calculator](https://github.com/GoodValts/motodream-helpers/distance-calculator)
-  _TBD..._
+- [Motodream distance calculator](https://github.com/GoodValts/motodream-helpers/tree/main/distance-calculator)
+- [Angle Stat](https://github.com/GoodValts/motodream-helpers/tree/main/angle-stat)
 
 ---
 
-_Created with gratitude to [uroven.by](https://uroven.by/)_
+###### _Created with gratitude to [uroven.by](https://uroven.by/)_
