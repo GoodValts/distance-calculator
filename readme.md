@@ -11,7 +11,7 @@ The goal of the development is to hone my programming skills and find some cleve
 ## List:
 
 - [Motodream distance calculator](https://github.com/GoodValts/motodream-helpers/tree/main/distance-calculator)
-- [Angle Stat](https://github.com/GoodValts/motodream-helpers/tree/main/angle-stat)
+- [Motodream angle stat](https://github.com/GoodValts/motodream-helpers/tree/main/angle-stat)
 
 ---
 
