@@ -7,15 +7,19 @@ export type AppSettingsInterface = {
   theme: 'light' | 'dark';
 };
 
+const getDefaultTheme = () => {
+  return new Date().getHours() >= 8 && new Date().getHours() < 22
+    ? 'light'
+    : 'dark';
+};
+
 const initialState: AppSettingsInterface = {
   language:
     (localStorage.getItem('language') as AppSettingsInterface['language']) ||
     'ru',
   theme:
     (localStorage.getItem('theme') as AppSettingsInterface['theme']) ||
-    (new Date().getHours() >= 8 && new Date().getHours() < 22)
-      ? 'light'
-      : 'dark',
+    getDefaultTheme(),
 };
 
 export const appSettingsSlice = createSlice({
@@ -27,8 +31,6 @@ export const appSettingsSlice = createSlice({
       action: PayloadAction<AppSettingsInterface['language']>
     ) => {
       state.language = action.payload;
-      document.title = getDocTitle(action.payload);
-      document.documentElement.lang = action.payload;
       localStorage.setItem('language', state.language);
     },
     setTheme: (state, action: PayloadAction<AppSettingsInterface['theme']>) => {
