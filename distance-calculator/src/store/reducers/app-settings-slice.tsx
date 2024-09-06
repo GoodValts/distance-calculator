@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
-import getDocTitle from '../../common/get-document-title';
 
 export type AppSettingsInterface = {
   language: 'en' | 'ru' | 'bel';
