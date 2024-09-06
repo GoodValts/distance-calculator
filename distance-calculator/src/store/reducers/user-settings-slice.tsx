@@ -7,9 +7,12 @@ export type UserSettingsInterface = {
 };
 
 const initialState: UserSettingsInterface = {
-  isMetric: Boolean(localStorage.getItem('isMetric')) || true,
+  isMetric: localStorage.getItem('isMetric') === 'false' ? false : true,
   isTable: Boolean(localStorage.getItem('isTable')) || false,
 };
+
+console.log('localStorage.getItem=', localStorage.getItem('isMetric'));
+console.log('inState=', initialState.isMetric);
 
 export const userSettingsSlice = createSlice({
   name: 'userSettingsData',

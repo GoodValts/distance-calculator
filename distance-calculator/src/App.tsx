@@ -17,9 +17,9 @@ function App() {
   useEffect(() => {
     const html = document.documentElement;
     html.setAttribute('data-theme', theme);
-    document.documentElement.lang = lang;
+    html.lang = lang;
     document.title = getDocTitle(lang);
-  }, [theme]);
+  }, [theme, lang]);
 
   return (
     <BrowserRouter>

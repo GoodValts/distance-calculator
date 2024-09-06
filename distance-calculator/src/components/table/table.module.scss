@@ -10,13 +10,17 @@
 
 .tableContainer {
   display: block;
-  width: calc(98vw - 40px);
-  max-width: 1280px;
   font-family: Arial, Helvetica, sans-serif;
+  max-width: calc(100vw - (2 * $marginDefault));
   background-image: linear-gradient(180deg, #f5f7fa 0%, #c3cfe2 100%);
   border-radius: calc($marginDefault / 2);
   margin: auto;
-  padding: $marginDefaultDiv2 0;
+  padding: $marginDefaultDiv2;
+
+  @include _mobile {
+    max-width: calc(100vw - $marginDefault);
+    padding: $marginDefaultDiv2 $marginDefaultDiv4;
+  }
 
   @include _dark {
     background-image: linear-gradient(

@@ -1,10 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
-import getDocTitle from '../../common/get-document-title';
 
 export type AppSettingsInterface = {
   language: 'en' | 'ru' | 'bel';
   theme: 'light' | 'dark';
+};
+
+const getDefaultTheme = () => {
+  return new Date().getHours() >= 8 && new Date().getHours() < 22
+    ? 'light'
+    : 'dark';
 };
 
 const initialState: AppSettingsInterface = {
@@ -13,9 +18,7 @@ const initialState: AppSettingsInterface = {
     'ru',
   theme:
     (localStorage.getItem('theme') as AppSettingsInterface['theme']) ||
-    (new Date().getHours() >= 8 && new Date().getHours() < 22)
-      ? 'light'
-      : 'dark',
+    getDefaultTheme(),
 };
 
 export const appSettingsSlice = createSlice({
@@ -27,8 +30,6 @@ export const appSettingsSlice = createSlice({
       action: PayloadAction<AppSettingsInterface['language']>
     ) => {
       state.language = action.payload;
-      document.title = getDocTitle(action.payload);
-      document.documentElement.lang = action.payload;
       localStorage.setItem('language', state.language);
     },
     setTheme: (state, action: PayloadAction<AppSettingsInterface['theme']>) => {
