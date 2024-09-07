@@ -4,6 +4,8 @@ import React from "react";
 import { TabBarIcon } from "@/components/navigation/TabBarIcon";
 import { Colors } from "@/constants/Colors";
 import { useColorScheme } from "@/hooks/useColorScheme";
+import { useAppSelector } from "@/hooks/reduxHooks";
+import { selectTracks } from "@/store/reducers/gpsSlice";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -28,26 +30,25 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="gpsModule"
         options={{
-          title: "Explore",
+          title: "GPS",
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon
-              name={focused ? "code-slash" : "code-slash-outline"}
+              name={focused ? "location" : "location-outline"}
               color={color}
             />
           ),
         }}
       />
       <Tabs.Screen
-        name="exp"
+        name="table"
         options={{
-          title: "Experiments",
+          title: `Track info (${useAppSelector(
+            selectTracks
+          ).length.toString()})`,
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon
-              name={focused ? "code-slash" : "code-slash-outline"}
-              color={color}
-            />
+            <TabBarIcon name={focused ? "map" : "map-outline"} color={color} />
           ),
         }}
       />

@@ -1,50 +1,23 @@
-import Ionicons from "@expo/vector-icons/Ionicons";
-import { StyleSheet, Image, Platform, Button } from "react-native";
-
-import { Collapsible } from "@/components/Collapsible";
-import { ExternalLink } from "@/components/ExternalLink";
+import { StyleSheet, Image } from "react-native";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 
 import * as Location from "expo-location";
 import { useEffect, useState } from "react";
-
-import * as Sensors from "expo-sensors";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { useGetWeatherQuery } from "@/services/openWeatherApi";
 
 export default function TabTwoScreen() {
-  const Gyroscope = Sensors.Gyroscope;
-
   const [location, setLocation] = useState<Location.LocationObject | null>(
     null
   );
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
-  const [{ x, y, z }, setData] = useState({
-    x: 0,
-    y: 0,
-    z: 0,
+  const [weather, setWeather] = useState({
+    data: null,
+    error: null,
+    isLoading: true,
   });
-  const [subscription, setSubscription] = useState<any>(null);
-
-  const _subscribe = () => {
-    setSubscription(
-      Gyroscope.addListener((gyroscopeData) => {
-        setData(gyroscopeData);
-      })
-    );
-  };
-
-  const _unsubscribe = () => {
-    subscription && subscription.remove();
-    setSubscription(null);
-  };
-
-  useEffect(() => {
-    _subscribe();
-    return () => _unsubscribe();
-  }, []);
 
   useEffect(() => {
     (async () => {
@@ -58,12 +31,38 @@ export default function TabTwoScreen() {
       setLocation(location);
 
       console.log("location=", location);
+
+      const lat = 52.4517376;
+      const lon = 30.9854208;
     })();
   }, []);
 
+  const { data, error, isLoading } = useGetWeatherQuery(
+    {
+      lat: location?.coords.latitude,
+      lon: location?.coords.longitude,
+    },
+    { skip: !location }
+  );
+
+  // useEffect(() => {
+  //   if (location) {
+  //     console.log("get location");
+
+  //     const lat = location.coords.latitude;
+  //     const lon = location.coords.longitude;
+  //     fetchWeather(lat, lon);
+  //   }
+  // }, [location]);
+
+  useEffect(() => {
+    if (data) console.log("data=", data);
+    console.log("w error=", error);
+  }, [data, error]);
+
   return (
     <ParallaxScrollView
-      headerBackgroundColor={{ light: "#D0D0D0", dark: "#353636" }}
+      headerBackgroundColor={{ light: "#F5DEB3", dark: "#353636" }}
       headerImage={
         <Image
           source={require("@/assets/images/moto.png")}
@@ -82,15 +81,16 @@ export default function TabTwoScreen() {
             {el[0].toString() + ": " + el[1]?.toString()}
           </ThemedText>
         ))}
-      <ThemedText type="subtitle">Sensors:</ThemedText>
-      <ThemedText>Gyroscope:</ThemedText>
-      <Button
-        title={subscription ? "on" : "off"}
-        onPress={subscription ? _unsubscribe : _subscribe}
-      ></Button>
-      {subscription && <ThemedText>{`x= ${x}`}</ThemedText>}
-      {subscription && <ThemedText>{`y= ${y}`}</ThemedText>}
-      {subscription && <ThemedText>{`z= ${z}`}</ThemedText>}
+      <ThemedText type="subtitle">Weather:</ThemedText>
+      {isLoading && <ThemedText>Loading...</ThemedText>}
+      {error && <ThemedText>Weather Error</ThemedText>}
+      {data && (
+        <ThemedText>{`${data.name}: ${data.weather[0].description}`}</ThemedText>
+      )}
+      {data && <ThemedText>Temp: {data.main.temp.toString()}</ThemedText>}
+      {data && (
+        <ThemedText>Feels like: {data.main.feels_like.toString()}</ThemedText>
+      )}
     </ParallaxScrollView>
   );
 }
