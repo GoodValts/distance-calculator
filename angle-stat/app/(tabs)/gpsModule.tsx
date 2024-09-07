@@ -9,15 +9,9 @@ import { useGetWeatherQuery } from "@/services/openWeatherApi";
 
 export default function TabTwoScreen() {
   const [location, setLocation] = useState<Location.LocationObject | null>(
-    null
+    null,
   );
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
-
-  const [weather, setWeather] = useState({
-    data: null,
-    error: null,
-    isLoading: true,
-  });
 
   useEffect(() => {
     (async () => {
@@ -31,29 +25,16 @@ export default function TabTwoScreen() {
       setLocation(location);
 
       console.log("location=", location);
-
-      const lat = 52.4517376;
-      const lon = 30.9854208;
     })();
   }, []);
 
   const { data, error, isLoading } = useGetWeatherQuery(
     {
-      lat: location?.coords.latitude,
-      lon: location?.coords.longitude,
+      lat: location!.coords.latitude,
+      lon: location!.coords.longitude,
     },
-    { skip: !location }
+    { skip: !location },
   );
-
-  // useEffect(() => {
-  //   if (location) {
-  //     console.log("get location");
-
-  //     const lat = location.coords.latitude;
-  //     const lon = location.coords.longitude;
-  //     fetchWeather(lat, lon);
-  //   }
-  // }, [location]);
 
   useEffect(() => {
     if (data) console.log("data=", data);
@@ -81,6 +62,7 @@ export default function TabTwoScreen() {
             {el[0].toString() + ": " + el[1]?.toString()}
           </ThemedText>
         ))}
+      {errorMsg && <ThemedText></ThemedText>}
       <ThemedText type="subtitle">Weather:</ThemedText>
       {isLoading && <ThemedText>Loading...</ThemedText>}
       {error && <ThemedText>Weather Error</ThemedText>}

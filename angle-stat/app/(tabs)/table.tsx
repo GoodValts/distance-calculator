@@ -3,12 +3,7 @@ import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 
-import * as Location from "expo-location";
-import { useEffect, useState } from "react";
-
-import * as Sensors from "expo-sensors";
-
-export default function TabTwoScreen() {
+export default function Table() {
   const gpxCreate = () => {
     console.log("create .gpx");
   };
