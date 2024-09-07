@@ -45,7 +45,7 @@ export default function TabLayout() {
         name="table"
         options={{
           title: `Track info (${useAppSelector(
-            selectTracks
+            selectTracks,
           ).length.toString()})`,
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon name={focused ? "map" : "map-outline"} color={color} />

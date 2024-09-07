@@ -14,17 +14,47 @@ export interface WeatherApiInterFace {
         icon: string;
       },
     ];
+    base: string;
+    main: {
+      temp: number;
+      feels_like: number;
+      temp_min: number;
+      temp_max: number;
+      pressure: number;
+      humidity: number;
+      sea_level: number;
+      grnd_level: number;
+    };
+    visibility: number;
+    wind: {
+      speed: number;
+      deg: number;
+      gust: number;
+    };
+    rain: {
+      "1h": number;
+    };
+    clouds: {
+      all: number;
+    };
+    dt: number;
+    sys: {
+      type: number;
+      id: number;
+      country: string;
+      sunrise: number;
+      sunset: number;
+    };
+    timezone: number;
+    id: number;
+    name: string;
+    cod: number;
   };
 }
 
 type SearchParamsType = {
   appid: string;
-  // exclude: Record<
-  //   "current" | "minutely" | "hourly" | "daily" | "alerts",
-  //   boolean
-  // >;
   lang: string;
-  // units: string;
 };
 
 const defaultSearchParams: SearchParamsType = {
@@ -43,25 +73,9 @@ export const weatherApi = createApi({
       { lat: number; lon: number; searchParams?: SearchParamsType }
     >({
       query: ({ lat, lon, searchParams = defaultSearchParams }) =>
-      `?lat=${lat}&lon=${lon}&appid=${searchParams.appid}&units=metric`
+        `?lat=${lat}&lon=${lon}&appid=${searchParams.appid}&units=metric`,
     }),
   }),
 });
 
 export const { useGetWeatherQuery } = weatherApi;
-
-
-// export const fetchWeather = (lat: number, lon: number) => {
-//   const baseUrl = "https://api.openweathermap.org/data/2.5/weather?";
-  
-//   console.log('-fetch-');
-
-//   fetch(`${baseUrl}lat=${lat}&lon=${lon}&appid=${defaultSearchParams.appid}`)
-//     .then((response) => {
-//       if (!response.ok) {
-//         throw new Error(`Error ${response.status}. ${response.statusText}`);
-//       }
-//       return response.json();
-//     })
-//     .then(data => console.log(data));
-// }
