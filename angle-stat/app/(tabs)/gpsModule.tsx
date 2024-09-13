@@ -11,7 +11,7 @@ import { useGetWeatherQuery } from "@/services/openWeatherApi";
 
 export default function TabTwoScreen() {
   const [location, setLocation] = useState<Location.LocationObject | null>(
-    null,
+    null
   );
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
@@ -56,7 +56,7 @@ export default function TabTwoScreen() {
         console.log("Received new locations", data.locations);
         setTrack((prevTrack) => [...prevTrack, data.locations[0]]);
       }
-    },
+    }
   );
 
   const startTracking = async () => {
@@ -95,7 +95,7 @@ export default function TabTwoScreen() {
           lon: location.coords.longitude,
         }
       : { lat: 0, lon: 0 },
-    { skip: !location },
+    { skip: !location }
   );
 
   // useEffect(() => {
@@ -142,7 +142,7 @@ export default function TabTwoScreen() {
           <Pressable
             onPress={() =>
               Linking.openURL(
-                `https://www.google.com/maps/?q=${location.coords.latitude},${location.coords.longitude}`,
+                `https://www.google.com/maps/?q=${location.coords.latitude},${location.coords.longitude}`
               )
             }
           >
@@ -166,7 +166,7 @@ export default function TabTwoScreen() {
       )}
       {errorMsg && <ThemedText style={{ color: "red" }}>{errorMsg}</ThemedText>}
 
-      <ThemedText type="subtitle">Weather:</ThemedText>
+      {/* <ThemedText type="subtitle">Weather:</ThemedText>
       {isLoading && <ThemedText>Loading...</ThemedText>}
       {error && <ThemedText>Weather Error</ThemedText>}
       {data && (
@@ -188,7 +188,7 @@ export default function TabTwoScreen() {
             </ThemedText>
           </ThemedView>
         </ThemedView>
-      )}
+      )} */}
       {track && (
         <>
           <ThemedText type="subtitle">Track:</ThemedText>
