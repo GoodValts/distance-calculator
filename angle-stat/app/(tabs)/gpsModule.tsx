@@ -11,7 +11,7 @@ import { useGetWeatherQuery } from "@/services/openWeatherApi";
 
 export default function TabTwoScreen() {
   const [location, setLocation] = useState<Location.LocationObject | null>(
-    null
+    null,
   );
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
@@ -21,11 +21,14 @@ export default function TabTwoScreen() {
 
   const [track, setTrack] = useState<Location.LocationObject[]>([]);
 
+  //GPS Test
+  const [currPoint, setCurrentPoint] = useState<string>("");
+
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
-        setErrorMsg("Permission to access location was denied");
+        setErrorMsg("Foreground: Permission to access location was denied");
         return;
       }
 
@@ -54,9 +57,11 @@ export default function TabTwoScreen() {
 
       if (data && data.locations && data.locations.length > 0) {
         console.log("Received new locations", data.locations);
+        setCurrentPoint(JSON.stringify(data.locations));
+        // Alert.alert("new point");
         setTrack((prevTrack) => [...prevTrack, data.locations[0]]);
       }
-    }
+    },
   );
 
   const startTracking = async () => {
@@ -65,7 +70,7 @@ export default function TabTwoScreen() {
     try {
       let { status } = await Location.requestBackgroundPermissionsAsync();
       if (status !== "granted") {
-        setErrorMsg("Permission to access location was denied");
+        Alert.alert("Background permission denied");
         return;
       }
 
@@ -79,7 +84,7 @@ export default function TabTwoScreen() {
     } catch (err) {
       console.log(err);
 
-      setErrorMsg("Permission to access location was denied");
+      setErrorMsg(`Error: ${err}`);
     }
   };
 
@@ -95,7 +100,7 @@ export default function TabTwoScreen() {
           lon: location.coords.longitude,
         }
       : { lat: 0, lon: 0 },
-    { skip: !location }
+    { skip: !location },
   );
 
   // useEffect(() => {
@@ -142,7 +147,7 @@ export default function TabTwoScreen() {
           <Pressable
             onPress={() =>
               Linking.openURL(
-                `https://www.google.com/maps/?q=${location.coords.latitude},${location.coords.longitude}`
+                `https://www.google.com/maps/?q=${location.coords.latitude},${location.coords.longitude}`,
               )
             }
           >
@@ -192,6 +197,7 @@ export default function TabTwoScreen() {
 
       {track && (
         <>
+          <ThemedText type="subtitle">Curr point: {currPoint}</ThemedText>
           <ThemedText type="subtitle">Track:</ThemedText>
           {track.map((point, index) => (
             <ThemedText
