@@ -70,7 +70,7 @@ export default function TabTwoScreen() {
       }
 
       await Location.startLocationUpdatesAsync("track-record", {
-        accuracy: Location.Accuracy.Low,
+        accuracy: Location.Accuracy.BestForNavigation,
         distanceInterval: 1,
         timeInterval: 1000,
       });
@@ -166,7 +166,7 @@ export default function TabTwoScreen() {
       )}
       {errorMsg && <ThemedText style={{ color: "red" }}>{errorMsg}</ThemedText>}
 
-      {/* <ThemedText type="subtitle">Weather:</ThemedText>
+      <ThemedText type="subtitle">Weather:</ThemedText>
       {isLoading && <ThemedText>Loading...</ThemedText>}
       {error && <ThemedText>Weather Error</ThemedText>}
       {data && (
@@ -188,7 +188,8 @@ export default function TabTwoScreen() {
             </ThemedText>
           </ThemedView>
         </ThemedView>
-      )} */}
+      )}
+
       {track && (
         <>
           <ThemedText type="subtitle">Track:</ThemedText>
