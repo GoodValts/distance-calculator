@@ -21,11 +21,14 @@ export default function TabTwoScreen() {
 
   const [track, setTrack] = useState<Location.LocationObject[]>([]);
 
+  //GPS Test
+  const [currPoint, setCurrentPoint] = useState<string>("");
+
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
-        setErrorMsg("Permission to access location was denied");
+        setErrorMsg("Foreground: Permission to access location was denied");
         return;
       }
 
@@ -54,6 +57,8 @@ export default function TabTwoScreen() {
 
       if (data && data.locations && data.locations.length > 0) {
         console.log("Received new locations", data.locations);
+        setCurrentPoint(JSON.stringify(data.locations));
+        // Alert.alert("new point");
         setTrack((prevTrack) => [...prevTrack, data.locations[0]]);
       }
     },
@@ -65,12 +70,12 @@ export default function TabTwoScreen() {
     try {
       let { status } = await Location.requestBackgroundPermissionsAsync();
       if (status !== "granted") {
-        setErrorMsg("Permission to access location was denied");
+        Alert.alert("Background permission denied");
         return;
       }
 
       await Location.startLocationUpdatesAsync("track-record", {
-        accuracy: Location.Accuracy.Low,
+        accuracy: Location.Accuracy.BestForNavigation,
         distanceInterval: 1,
         timeInterval: 1000,
       });
@@ -79,7 +84,7 @@ export default function TabTwoScreen() {
     } catch (err) {
       console.log(err);
 
-      setErrorMsg("Permission to access location was denied");
+      setErrorMsg(`Error: ${err}`);
     }
   };
 
@@ -189,8 +194,10 @@ export default function TabTwoScreen() {
           </ThemedView>
         </ThemedView>
       )}
+
       {track && (
         <>
+          <ThemedText type="subtitle">Curr point: {currPoint}</ThemedText>
           <ThemedText type="subtitle">Track:</ThemedText>
           {track.map((point, index) => (
             <ThemedText
