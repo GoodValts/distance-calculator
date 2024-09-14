@@ -8,43 +8,12 @@ import * as TaskManager from "expo-task-manager";
 
 import { useEffect, useState } from "react";
 import { useGetWeatherQuery } from "@/services/openWeatherApi";
-import { useAppDispatch } from "@/hooks/reduxHooks";
-import { addTrack } from "@/store/reducers/gpsSlice";
+import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
+import { addTrack, selectTracks } from "@/store/reducers/gpsSlice";
 
-const convertToGPX = (track: Location.LocationObject[]) => {
-  return `<?xml version="1.0" encoding="UTF-8"?>
-  <gpx
-  xmlns="http://www.topografix.com/GPX/1/1"
-  version="1.0"
-  creator="Angle-Stat">
-    <time>${new Date().toISOString()}</time>
-    <metadata>
-      <name>Angle-Stat-test</name>
-      <desc>Test-track</desc>
-      <author>
-       <name>someAuthor</name>
-      </author>
-    </metadata>
-    <trk>
-      <name>Track №x.x</name>
-      <trkseg>
-        ${track
-          .map(
-            (el) => `
-            <trkpt lat="${el.coords.latitude}" lon="${el.coords.longitude}">
-              <time>${el.timestamp}</time>
-              <ele>${el.coords.altitude}</ele>
-            </trkpt>
-            `
-          )
-          .join("")}</trkseg>
-    </trk>
-  </gpx>`;
-};
-
-export default function TabTwoScreen() {
+export default function GpsTab() {
   const [location, setLocation] = useState<Location.LocationObject | null>(
-    null
+    null,
   );
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
@@ -55,6 +24,7 @@ export default function TabTwoScreen() {
   const [track, setTrack] = useState<Location.LocationObject[]>([]);
 
   const dispatch = useAppDispatch();
+  const tracks = useAppSelector(selectTracks);
   //GPS Test
   const [currPoint, setCurrentPoint] = useState<string>("");
 
@@ -95,7 +65,7 @@ export default function TabTwoScreen() {
         // Alert.alert("new point");
         setTrack((prevTrack) => [...prevTrack, data.locations[0]]);
       }
-    }
+    },
   );
 
   const startTracking = async () => {
@@ -114,7 +84,7 @@ export default function TabTwoScreen() {
         timeInterval: 1000,
       });
       setIsTracking(true);
-      Alert.alert("Location updates started!");
+      Alert.alert("Track recording started!");
     } catch (err) {
       console.log(err);
 
@@ -125,8 +95,9 @@ export default function TabTwoScreen() {
   const stopTracking = async () => {
     await Location.stopLocationUpdatesAsync("track-record");
     setIsTracking(false);
-    dispatch(addTrack([convertToGPX(track)]));
+    if (track.length) dispatch(addTrack([...tracks, track]));
     setTrack([]);
+    Alert.alert("Track recording stopped!");
   };
 
   const { data, error, isLoading } = useGetWeatherQuery(
@@ -136,7 +107,7 @@ export default function TabTwoScreen() {
           lon: location.coords.longitude,
         }
       : { lat: 0, lon: 0 },
-    { skip: !location }
+    { skip: !location },
   );
 
   // useEffect(() => {
@@ -183,7 +154,7 @@ export default function TabTwoScreen() {
           <Pressable
             onPress={() =>
               Linking.openURL(
-                `https://www.google.com/maps/?q=${location.coords.latitude},${location.coords.longitude}`
+                `https://www.google.com/maps/?q=${location.coords.latitude},${location.coords.longitude}`,
               )
             }
           >

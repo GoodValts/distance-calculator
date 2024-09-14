@@ -30,7 +30,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="gpsModule"
+        name="gpsTab"
         options={{
           title: "GPS",
           tabBarIcon: ({ color, focused }) => (

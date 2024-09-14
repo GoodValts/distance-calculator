@@ -1,9 +1,11 @@
+import * as Location from "expo-location";
+
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../store";
 
 interface GpsSlice {
-  tracks: string[];
+  tracks: Location.LocationObject[][];
   currentPoint: string;
 }
 
