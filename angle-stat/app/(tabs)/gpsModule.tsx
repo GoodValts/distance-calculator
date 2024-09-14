@@ -28,18 +28,6 @@ const convertToGPX = (track: Location.LocationObject[]) => {
     <trk>
       <name>Track №x.x</name>
       <trkseg>
-        <trkpt lat="52.4584928" lon="30.9905878">
-          <time>1726306435674</time>
-          <ele>165.800000030517578</ele>
-        </trkpt>
-        <trkpt lat="52" lon="30">
-          <time>1726306435675</time>
-          <ele>165.800000030517578</ele>
-        </trkpt>
-        <trkpt lat="51" lon="31">
-          <time>1726306435676</time>
-          <ele>165.800000030517578</ele>
-        </trkpt>
         ${track
           .map(
             (el) => `
