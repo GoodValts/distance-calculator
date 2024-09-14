@@ -8,10 +8,55 @@ import * as TaskManager from "expo-task-manager";
 
 import { useEffect, useState } from "react";
 import { useGetWeatherQuery } from "@/services/openWeatherApi";
+import { useAppDispatch } from "@/hooks/reduxHooks";
+import { addTrack } from "@/store/reducers/gpsSlice";
+
+const convertToGPX = (track: Location.LocationObject[]) => {
+  return `<?xml version="1.0" encoding="UTF-8"?>
+  <gpx
+  xmlns="http://www.topografix.com/GPX/1/1"
+  version="1.0"
+  creator="Angle-Stat">
+    <time>${new Date().toISOString()}</time>
+    <metadata>
+      <name>Angle-Stat-test</name>
+      <desc>Test-track</desc>
+      <author>
+       <name>someAuthor</name>
+      </author>
+    </metadata>
+    <trk>
+      <name>Track №x.x</name>
+      <trkseg>
+        <trkpt lat="52.4584928" lon="30.9905878">
+          <time>1726306435674</time>
+          <ele>165.800000030517578</ele>
+        </trkpt>
+        <trkpt lat="52" lon="30">
+          <time>1726306435675</time>
+          <ele>165.800000030517578</ele>
+        </trkpt>
+        <trkpt lat="51" lon="31">
+          <time>1726306435676</time>
+          <ele>165.800000030517578</ele>
+        </trkpt>
+        ${track
+          .map(
+            (el) => `
+            <trkpt lat="${el.coords.latitude}" lon="${el.coords.longitude}">
+              <time>${el.timestamp}</time>
+              <ele>${el.coords.altitude}</ele>
+            </trkpt>
+            `
+          )
+          .join("")}</trkseg>
+    </trk>
+  </gpx>`;
+};
 
 export default function TabTwoScreen() {
   const [location, setLocation] = useState<Location.LocationObject | null>(
-    null,
+    null
   );
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
@@ -21,6 +66,7 @@ export default function TabTwoScreen() {
 
   const [track, setTrack] = useState<Location.LocationObject[]>([]);
 
+  const dispatch = useAppDispatch();
   //GPS Test
   const [currPoint, setCurrentPoint] = useState<string>("");
 
@@ -61,7 +107,7 @@ export default function TabTwoScreen() {
         // Alert.alert("new point");
         setTrack((prevTrack) => [...prevTrack, data.locations[0]]);
       }
-    },
+    }
   );
 
   const startTracking = async () => {
@@ -76,7 +122,7 @@ export default function TabTwoScreen() {
 
       await Location.startLocationUpdatesAsync("track-record", {
         accuracy: Location.Accuracy.BestForNavigation,
-        distanceInterval: 1,
+        distanceInterval: 3,
         timeInterval: 1000,
       });
       setIsTracking(true);
@@ -91,6 +137,8 @@ export default function TabTwoScreen() {
   const stopTracking = async () => {
     await Location.stopLocationUpdatesAsync("track-record");
     setIsTracking(false);
+    dispatch(addTrack([convertToGPX(track)]));
+    setTrack([]);
   };
 
   const { data, error, isLoading } = useGetWeatherQuery(
@@ -100,7 +148,7 @@ export default function TabTwoScreen() {
           lon: location.coords.longitude,
         }
       : { lat: 0, lon: 0 },
-    { skip: !location },
+    { skip: !location }
   );
 
   // useEffect(() => {
@@ -147,7 +195,7 @@ export default function TabTwoScreen() {
           <Pressable
             onPress={() =>
               Linking.openURL(
-                `https://www.google.com/maps/?q=${location.coords.latitude},${location.coords.longitude}`,
+                `https://www.google.com/maps/?q=${location.coords.latitude},${location.coords.longitude}`
               )
             }
           >
@@ -197,12 +245,12 @@ export default function TabTwoScreen() {
 
       {track && (
         <>
-          <ThemedText type="subtitle">Curr point: {currPoint}</ThemedText>
+          <ThemedText>Curr point: {currPoint}</ThemedText>
           <ThemedText type="subtitle">Track:</ThemedText>
           {track.map((point, index) => (
             <ThemedText
               key={index}
-            >{`№${index}: lat-${point.coords.latitude} alt-${point.coords.altitude}`}</ThemedText>
+            >{`№${index}: lat: ${point.coords.latitude.toFixed(5)}, lon: ${point.coords.longitude.toFixed(5)} alt: ${point.coords.altitude?.toFixed(3)}`}</ThemedText>
           ))}
         </>
       )}
