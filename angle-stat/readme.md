@@ -1,40 +1,50 @@
-# Motodream angle stat
+# Welcome to your Expo app 👋
 
-<details>
-  <summary>Preface</summary>
+This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
+## Get started
+
+1. Install dependencies
+
+   ```bash
+   npm install
+   ```
+
+2. Start the app
+
+   ```bash
+    npx expo start
+   ```
+
+In the output, you'll find options to open the app in a
+
+- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
+- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
+- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
+- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+
+You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+
+## Get a fresh project
+
+When you're ready, run:
+
+```bash
+npm run reset-project
 ```
-- If he is so clever ask him what controls a motorcycle. Tell him who he is if the answer isn't "angle".
-- So, we still have no information on how we ride?
-```
 
-</details>
+This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
 
-Application, that allows you to get statistics about your riding.
+## Learn more
 
-Include:
+To learn more about developing your project with Expo, look at the following resources:
 
-- TBD
+- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
+- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
 
-## Tech:
+## Join the community
 
-- React Native
-- TBD
+Join our community of developers creating universal apps.
 
-## Install
-
-<!-- To open deploy select [version](#versions). -->
-
-To start the application in developer mode make sure you have [Git](https://git-scm.com) and [Node.js](https://nodejs.org) installed on your machine. Then follow these steps:
-
-1. Clone repository: `git clone https://github.com/GoodValts/motodream-helpers.git`
-1. Navigate to the project directory: `cd motodream-helpers`
-1. Switch to app branch: `git checkout angle-stat`
-1. Navigate to the app directory: `cd angle-stat`
-<!-- 1. Install dependencies: `npm i`
-1. Start the development server: `npm run dev`
-1. Open the link or navigate to `http://localhost:5173/` -->
-
-## Versions
-
-- [v0.0.0]() TBD
+- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
+- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
